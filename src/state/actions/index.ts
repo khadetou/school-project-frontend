@@ -6,12 +6,12 @@ interface CreateProductsAction {
 
 interface CreateProductsSuccessAction {
   type: ActionTypes.CREATE_PRODUCTS_SUCCESS;
-  payload: string[];
+  payload: any[];
 }
 
 interface CreateProductsFailureAction {
   type: ActionTypes.CREATE_PRODUCTS_FAILURE;
-  payload: string;
+  payload: any;
 }
 
 interface UpdateProductsAction {
@@ -20,12 +20,12 @@ interface UpdateProductsAction {
 
 interface UpdateProductsSuccessAction {
   type: ActionTypes.UPDATE_PRODUCTS_SUCCESS;
-  payload: string;
+  payload: any;
 }
 
 interface UpdateProductsFailureAction {
   type: ActionTypes.UPDATE_PRODUCTS_FAILURE;
-  payload: string;
+  payload: any;
 }
 
 interface DeleteProductsAction {
@@ -34,12 +34,12 @@ interface DeleteProductsAction {
 
 interface DeleteProductsSuccessAction {
   type: ActionTypes.DELETE_PRODUCTS_SUCCESS;
-  payload: string;
+  payload: any;
 }
 
 interface DeleteProductsFailureAction {
   type: ActionTypes.DELETE_PRODUCTS_FAILURE;
-  payload: string;
+  payload: any;
 }
 
 interface GetProductsAction {
@@ -48,12 +48,12 @@ interface GetProductsAction {
 
 interface GetProductsSuccessAction {
   type: ActionTypes.GET_PRODUCTS_SUCCESS;
-  payload: string[];
+  payload: any[];
 }
 
 interface GetProductsFailureAction {
   type: ActionTypes.GET_PRODUCTS_FAILURE;
-  payload: string;
+  payload: any;
 }
 
 interface GetProductsByIdAction {
@@ -62,12 +62,12 @@ interface GetProductsByIdAction {
 
 interface GetProductsByIdSuccessAction {
   type: ActionTypes.GET_PRODUCTS_BY_ID_SUCCESS;
-  payload: string;
+  payload: any;
 }
 
 interface GetProductsByIdFailureAction {
   type: ActionTypes.GET_PRODUCTS_BY_ID_FAILURE;
-  payload: string;
+  payload: any;
 }
 
 export type Action =

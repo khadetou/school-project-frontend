@@ -5,7 +5,7 @@ interface RepositoryProductState {
   loading: boolean;
   error: string | null;
   success: boolean;
-  data: string | null;
+  data: any | null;
 }
 
 const initialState = {

@@ -4,7 +4,7 @@ import { Action } from "../actions";
 interface RepositoryProductState {
   loading: boolean;
   error: string | null;
-  data: string | null;
+  data: any | null;
 }
 
 const initialState = {
