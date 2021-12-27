@@ -44,7 +44,7 @@ const Home: React.FC = () => {
   //Generate three random products from the data
   const randomProducts = products.sort(() => 0.5 - Math.random()).slice(0, 3);
 
-  console.log(randomProducts);
+
 
   return (
     <IonPage>
@@ -104,7 +104,7 @@ const Home: React.FC = () => {
         <div className="product-slider">
           <IonSlides options={slideOpts}>
             <div className="rm">
-              {data && products.map((product) => (
+              {data && randomProducts.map((product) => (
                 <IonSlide key={product.id}>
                   <IonCol className="ion-text-left">
                     <img src={product.image} />
@@ -125,7 +125,7 @@ const Home: React.FC = () => {
         <div className="product-slider ">
           <IonSlides options={slideOpts}>
             <div className="rm">
-              {data && data.map((product) => (
+              {data && randomProducts.map((product) => (
                 <IonSlide key={product.id}>
                   <IonCol className="ion-text-left">
                     <img src={product.img} />
