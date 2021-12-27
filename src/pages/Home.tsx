@@ -17,14 +17,13 @@ const Home: React.FC = () => {
   const { data, error, loading } = useTypedSelector(state => state.getProducts);
   const [change, setChange] = useState(false);
 
-  setTimeout(() => {
-    setChange(true);
-  }, 1000);
-
+  // const timer = setTimeout(() => {
+  //   setChange(true);
+  // }, 5000);
   useEffect(() => {
     getProducts();
-    $(".rm ion-slide").unwrap();
-  }, [change]);
+    // $(".rm").unwrap();
+  }, []);
 
 
 
@@ -128,7 +127,7 @@ const Home: React.FC = () => {
               {data && randomProducts.map((product) => (
                 <IonSlide key={product.id}>
                   <IonCol className="ion-text-left">
-                    <img src={product.img} />
+                    <img src={product.image} />
                     <p> {`$${product.price} `}</p>
                     <h6> {product.name}</h6>
                   </IonCol>

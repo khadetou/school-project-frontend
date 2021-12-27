@@ -1,10 +1,34 @@
 import { IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonTitle, IonToolbar } from "@ionic/react";
 import { arrowDown, arrowForward } from "ionicons/icons";
-import { useState } from "react";
+import { get } from "jquery";
+import { useEffect, useState } from "react";
+import { useAction } from "../hooks/useActions";
+import { useTypedSelector } from "../hooks/useTypeSelector";
 
 
 const SlideDrawer: React.FC = () => {
-    const [showMenu, setShowMenu] = useState(false);
+    const [showCat, setShowCat] = useState(false);
+    const [showShop, setShowShop] = useState(false);
+    const [showLocation, setShowLocation] = useState(false);
+    const { getProducts } = useAction();
+    useEffect(() => {
+        getProducts();
+    }, []);
+    const { data, error, loading } = useTypedSelector(state => state.getProducts);
+    //Remove all repeated categories
+    const categories = data!.map(product => product.category);
+    const uniqueCategories = [...new Set(categories)];
+
+    //Remove all repeated shops
+    const shops = data!.map(product => product.store);
+
+    const uniqueShops = [...new Set(shops)];
+
+    //Remove all repeated locations
+    const locations = data!.map(product => product.location);
+    const uniqueLocations = [...new Set(locations)];
+
+
 
     return (
         <IonMenu contentId="main">
@@ -17,22 +41,62 @@ const SlideDrawer: React.FC = () => {
             </IonHeader>
             <IonContent>
 
-                <IonItem button onClick={() => setShowMenu(!showMenu)}>
-                    {!showMenu ?
+                <IonItem button onClick={() => setShowCat(!showCat)}>
+                    {!showCat ?
                         < IonIcon slot="start" icon={arrowForward} />
                         :
                         <IonIcon slot="start" icon={arrowDown} />
                     }
-                    <IonLabel>Localité</IonLabel>
+                    <IonLabel>Categories</IonLabel>
                 </IonItem>
-                {showMenu &&
-                    <IonList>
+                {showCat && uniqueCategories.map((category, idx) => (
+                    <IonList key={idx}>
                         <IonMenuToggle>
                             <IonItem button routerLink="/products" routerDirection="none">
-                                <IonLabel> Dakar </IonLabel>
+                                <IonLabel>{category}</IonLabel>
                             </IonItem>
                         </IonMenuToggle>
-                    </IonList>
+                    </IonList>))
+
+                }
+
+
+                <IonItem button onClick={() => setShowShop(!showShop)}>
+                    {!showShop ?
+                        < IonIcon slot="start" icon={arrowForward} />
+                        :
+                        <IonIcon slot="start" icon={arrowDown} />
+                    }
+                    <IonLabel>Boutiques</IonLabel>
+                </IonItem>
+                {showShop && uniqueShops.map((shop, idx) => (
+                    <IonList key={idx}>
+                        <IonMenuToggle>
+                            <IonItem button routerLink="/products" routerDirection="none">
+                                <IonLabel>{shop}</IonLabel>
+                            </IonItem>
+                        </IonMenuToggle>
+                    </IonList>))
+
+                }
+
+                <IonItem button onClick={() => setShowLocation(!showLocation)}>
+                    {!showLocation ?
+                        < IonIcon slot="start" icon={arrowForward} />
+                        :
+                        <IonIcon slot="start" icon={arrowDown} />
+                    }
+                    <IonLabel>Localités</IonLabel>
+                </IonItem>
+                {showLocation && uniqueLocations.map((location, idx) => (
+                    <IonList key={idx}>
+                        <IonMenuToggle>
+                            <IonItem button routerLink="/products" routerDirection="none">
+                                <IonLabel>{location}</IonLabel>
+                            </IonItem>
+                        </IonMenuToggle>
+                    </IonList>))
+
                 }
 
             </IonContent>
