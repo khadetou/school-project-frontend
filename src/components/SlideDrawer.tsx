@@ -10,6 +10,7 @@ const SlideDrawer: React.FC = () => {
     const [showCat, setShowCat] = useState(false);
     const [showShop, setShowShop] = useState(false);
     const [showLocation, setShowLocation] = useState(false);
+    const [showStatus, setShowStatus] = useState(false);
     const { getProducts } = useAction();
     useEffect(() => {
         getProducts();
@@ -28,7 +29,9 @@ const SlideDrawer: React.FC = () => {
     const locations = data!.map(product => product.location);
     const uniqueLocations = [...new Set(locations)];
 
-
+    //Remove all repeated status
+    const statuses = data!.map(product => product.status);
+    const uniqueStatus = [...new Set(statuses)];
 
     return (
         <IonMenu contentId="main">
@@ -98,6 +101,27 @@ const SlideDrawer: React.FC = () => {
                     </IonList>))
 
                 }
+
+
+                <IonItem button onClick={() => setShowStatus(!showStatus)}>
+                    {!showStatus ?
+                        < IonIcon slot="start" icon={arrowForward} />
+                        :
+                        <IonIcon slot="start" icon={arrowDown} />
+                    }
+                    <IonLabel>Status</IonLabel>
+                </IonItem>
+                {showStatus && uniqueStatus.map((status, idx) => (
+                    <IonList key={idx}>
+                        <IonMenuToggle>
+                            <IonItem button routerLink="/products" routerDirection="none">
+                                <IonLabel>{status}</IonLabel>
+                            </IonItem>
+                        </IonMenuToggle>
+                    </IonList>))
+
+                }
+
 
             </IonContent>
         </IonMenu>
