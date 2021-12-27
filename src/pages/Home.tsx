@@ -18,37 +18,17 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     getProducts();
-    $(".rm ion-slide").unwrap();
-  }, [data]);
+    if (!loading && data) {
+      $(".rm ion-slide").unwrap();
+    }
+  }, []);
+
+  //Remove all repeated categories
+  const categories = data!.map(product => product.category);
+  const uniqueCategories = [...new Set(categories)];
+  console.log(uniqueCategories);
 
 
-
-
-  console.log(data);
-
-
-
-
-  const Categories = [
-    {
-      id: "a3c9e55a-66bb-4ffd-871c-ed32399eb276",
-      name: "category1sdvdsvsqvsd",
-      img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-    },
-    {
-      id: "a3c9e55a-66bb-4ffd-871c-ed32399eb276",
-      name: "category2",
-      img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-    },
-    {
-      name: "category3sdqvdvs",
-      img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-    },
-    {
-      name: "category4vsvsdvvsdvsdvd",
-      img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-    },
-  ]
 
   // const products = [
   //   {
@@ -109,11 +89,11 @@ const Home: React.FC = () => {
           <div>
             <IonSlides options={slideOpts}>
               <div className="rm">
-                {data && data.map((p) => (
-                  <IonSlide key={p.id}>
+                {data && uniqueCategories.map((p, index) => (
+                  <IonSlide key={index}>
                     <IonCol >
-                      <h4 >{p.category}</h4>
-                      <img src={p.image} />
+                      <h4 >{uniqueCategories[index]}</h4>
+                      <img src="/assets/categories/category-1.png" />
                     </IonCol>
                   </IonSlide>
                 ))}
