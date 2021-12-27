@@ -22,6 +22,7 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import SlideDrawer from './components/SlideDrawer';
+import ProductDetail from './pages/ProductDetail';
 
 setupIonicReact();
 
@@ -35,6 +36,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />
+        </Route>
+        <Route exact path="/details">
+          <ProductDetail />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
