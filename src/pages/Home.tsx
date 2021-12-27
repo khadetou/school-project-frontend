@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTypedSelector } from '../hooks/useTypeSelector';
 import { useAction } from '../hooks/useActions';
 import { IonButton, IonButtons, IonCol, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonMenuButton, IonPage, IonSlide, IonSlides, IonTitle, IonToolbar } from '@ionic/react';
@@ -15,43 +15,37 @@ const slideOpts = {
 const Home: React.FC = () => {
   const { getProducts } = useAction();
   const { data, error, loading } = useTypedSelector(state => state.getProducts);
+  const [change, setChange] = useState(false);
+
+  setTimeout(() => {
+    setChange(true);
+  }, 1000);
 
   useEffect(() => {
     getProducts();
-    if (!loading && data) {
-      $(".rm ion-slide").unwrap();
-    }
-  }, []);
+    $(".rm ion-slide").unwrap();
+  }, [change]);
+
+
+
 
   //Remove all repeated categories
   const categories = data!.map(product => product.category);
   const uniqueCategories = [...new Set(categories)];
-  console.log(uniqueCategories);
 
+  //Reduce the length of the name of data to display
+  const products = data!.map(product => {
+    return {
+      ...product,
+      name: product.name.substring(0, 20) + "..."
+    }
+  });
 
+  //Generate three random products from the data
+  const randomProducts = products.sort(() => 0.5 - Math.random()).slice(0, 3);
 
-  // const products = [
-  //   {
-  //     img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-  //     name: "product1",
-  //     price: 10
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-  //     name: "product2",
-  //     price: 20
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-  //     name: "product3",
-  //     price: 30
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-  //     name: "product4",
-  //     price: 40
-  //   }
-  // ]
+  console.log(randomProducts);
+
   return (
     <IonPage>
       <IonHeader>
@@ -110,11 +104,11 @@ const Home: React.FC = () => {
         <div className="product-slider">
           <IonSlides options={slideOpts}>
             <div className="rm">
-              {data && data.map((product) => (
+              {data && products.map((product) => (
                 <IonSlide key={product.id}>
                   <IonCol className="ion-text-left">
                     <img src={product.image} />
-                    <p> {`${product.price} Franc CFA `}</p>
+                    <p> {`${product.price} FCFA `}</p>
                     <h6> {product.name}</h6>
                   </IonCol>
                 </IonSlide>
