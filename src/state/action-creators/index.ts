@@ -24,6 +24,26 @@ export const createProduct = (product: any) => {
     }
   };
 };
+//CREATE PRODUCT SEEDER
+export const createProductSeeder = () => {
+  return async (dispatch: Dispatch<Action>) => {
+    dispatch({ type: ActionTypes.CREATE_PRODUCTS });
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/products/seeder"
+      );
+      dispatch({
+        type: ActionTypes.CREATE_PRODUCTS_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: ActionTypes.CREATE_PRODUCTS_FAILURE,
+        payload: error.message,
+      });
+    }
+  };
+};
 
 //GET PRODUCTS WITH FILTERS
 export const getProducts = (search = "") => {
