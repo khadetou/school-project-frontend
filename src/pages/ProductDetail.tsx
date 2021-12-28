@@ -27,7 +27,7 @@ const ProductDetail = () => {
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="start">
-                        <IonButton color="primary" className="backbtn" routerLink="/home" routerDirection="back">
+                        <IonButton color="primary" className="backbtn" routerLink="/products" routerDirection="back">
                             <img src="/assets/back-dark.svg" alt="" />
                         </IonButton>
                     </IonButtons>
