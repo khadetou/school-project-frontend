@@ -1,6 +1,8 @@
 import { IonBackButton, IonBadge, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonList, IonPage, IonRow, IonTitle, IonToolbar } from "@ionic/react";
 import { arrowRedoOutline, cart, cartOutline, chevronBackOutline, heart, heartOutline } from 'ionicons/icons';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams, useLocation } from "react-router";
+import { useAction } from "../hooks/useActions";
 import './Product.css';
 
 
@@ -35,6 +37,18 @@ const Product: React.FC = () => {
             price: 40
         }
     ]
+    const { getProducts } = useAction();
+    //@ts-ignore
+    const { category } = useParams();
+
+
+    useEffect(() => {
+        if (category) {
+            getProducts("", category);
+        }
+    }, [])
+
+
 
     return (
         <IonPage>

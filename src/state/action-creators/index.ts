@@ -46,12 +46,19 @@ export const createProductSeeder = () => {
 };
 
 //GET PRODUCTS WITH FILTERS
-export const getProducts = (search = "") => {
+export const getProducts = (
+  search: string = "",
+  category: string = "",
+  status: string = "",
+  location: string = "",
+  store: string = ""
+) => {
+  console.log(category);
   return async (dispatch: Dispatch<Action>) => {
     dispatch({ type: ActionTypes.GET_PRODUCTS });
     try {
       const response = await axios.get(
-        `http://localhost:3001/products?search=${search}`
+        `http://localhost:3001/products?search=${search}&&category=${category}&&status=${status}&&location=${location}&&store=${store}`
       );
       dispatch({
         type: ActionTypes.GET_PRODUCTS_SUCCESS,

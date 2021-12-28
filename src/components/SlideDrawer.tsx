@@ -1,6 +1,6 @@
 import { IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonTitle, IonToolbar } from "@ionic/react";
 import { arrowDown, arrowForward } from "ionicons/icons";
-import { get } from "jquery";
+import { useHistory } from "react-router";
 import { useEffect, useState } from "react";
 import { useAction } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypeSelector";
@@ -15,6 +15,8 @@ const SlideDrawer: React.FC = () => {
     useEffect(() => {
         getProducts();
     }, []);
+    const history = useHistory();
+
     const { data, error, loading } = useTypedSelector(state => state.getProducts);
     //Remove all repeated categories
     const categories = data!.map(product => product.category);
@@ -32,6 +34,11 @@ const SlideDrawer: React.FC = () => {
     //Remove all repeated status
     const statuses = data!.map(product => product.status);
     const uniqueStatus = [...new Set(statuses)];
+
+    //Get products by category
+    const getProductsByCategory = (category: string) => {
+        history.push(`/products/${category}`);
+    }
 
     return (
         <IonMenu contentId="main">
@@ -55,7 +62,7 @@ const SlideDrawer: React.FC = () => {
                 {showCat && uniqueCategories.map((category, idx) => (
                     <IonList key={idx}>
                         <IonMenuToggle>
-                            <IonItem button routerLink="/products" routerDirection="none">
+                            <IonItem button onClick={() => getProductsByCategory(category)} routerDirection="none">
                                 <IonLabel>{category}</IonLabel>
                             </IonItem>
                         </IonMenuToggle>
