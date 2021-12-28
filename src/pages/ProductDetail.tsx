@@ -1,9 +1,27 @@
 import { IonButton, IonButtons, IonCol, IonContent, IonFooter, IonHeader, IonIcon, IonLabel, IonPage, IonRow, IonSegment, IonSegmentButton, IonSlide, IonSlides, IonToolbar } from '@ionic/react';
 import { searchOutline, notificationsOutline } from 'ionicons/icons';
+import { useEffect } from 'react';
+import { useParams } from 'react-router';
+import { useAction } from '../hooks/useActions';
+import { useTypedSelector } from '../hooks/useTypeSelector';
 import './ProductDetail.css';
 
 
 const ProductDetail = () => {
+    const { getProductById } = useAction();
+
+    //@ts-ignore
+    const { id } = useParams();
+
+    useEffect(() => {
+        if (id) {
+            getProductById(id);
+        }
+    }, [id]);
+
+    const { data, error, loading } = useTypedSelector(state => state.getProductById);
+
+
     return (
         <IonPage>
             <IonHeader>
@@ -28,22 +46,16 @@ const ProductDetail = () => {
             <IonContent>
                 <IonSlides pager={true} class="product-slider">
                     <IonSlide>
-                        <img src="/assets/product-slider/prod-slide1.png" />
-                    </IonSlide>
-                    <IonSlide>
-                        <img src="/assets/product-slider/prod-slide1.png" />
-                    </IonSlide>
-                    <IonSlide>
-                        <img src="/assets/product-slider/prod-slide1.png" />
+                        <img src={data && data!.image} />
                     </IonSlide>
                 </IonSlides>
 
                 <div className="ion-padding-vertical">
-                    <h1 className="item-name">Black turtleneck top</h1>
+                    <h1 className="item-name">{data && data.name}</h1>
 
                     <h4 className="price">
-                        $42
-                        <span className="real-price">$62</span>
+                        {data && data.price} FCFA
+                        <span className="real-price">{data && data.price + 10000} FCFA</span>
                     </h4>
                 </div>
 
@@ -58,10 +70,10 @@ const ProductDetail = () => {
                                 4.5
                             </div>
 
-                            Very Good
+                            Status
                         </IonCol>
                         <IonCol size="6">
-                            <div className="count">49 Reviews</div>
+                            <div className="count">{data && data.status}</div>
                         </IonCol>
                     </IonRow>
                 </div>
@@ -74,7 +86,7 @@ const ProductDetail = () => {
                     <h5>Description</h5>
 
                     <p>
-                        A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine.
+                        {data && data.description}
                     </p>
 
                 </div>
@@ -86,10 +98,10 @@ const ProductDetail = () => {
                 <div className="variation">
                     <IonSegment /**onchange */ value="size">
                         <IonSegmentButton value="size">
-                            <IonLabel>Select Size</IonLabel>
+                            <IonLabel>{data && data.store}</IonLabel>
                         </IonSegmentButton>
                         <IonSegmentButton value="color">
-                            <IonLabel>Select Color</IonLabel>
+                            <IonLabel>{data && data.location}</IonLabel>
                         </IonSegmentButton>
                     </IonSegment>
                 </div>

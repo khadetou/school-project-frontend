@@ -40,7 +40,7 @@ ion-content {
   margin-top: 16px;
   color: #2a2a2a;
 }
-.review .rating {
+.rating {
   display: inline-block;
   color: #ffffff;
   background: var(--ion-color-primary);
