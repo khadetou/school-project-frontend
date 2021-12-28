@@ -7,8 +7,8 @@ L' aplication Compare price permet d'afficher des produits du moin cher au plus 
 - [Mysql](https://www.mysql.com/) : pour la base de données
 
 ## Utilisation
-- [Github](https://github.com/khadetou/school-project-frontend.git) : pour le front-end
-- [Github](https://github.com/khadetou/school-project-backend.git) : pour le back-end
+- [Front-end Github](https://github.com/khadetou/school-project-frontend.git) : lien github du front-end
+- [Back-end Github](https://github.com/khadetou/school-project-backend.git) : pour le back-end
 
 Apres avoir cloner les deux repositories, il faut installer les dependances avec la commande suivante:
 
