@@ -3,7 +3,6 @@ import { useTypedSelector } from '../hooks/useTypeSelector';
 import { useAction } from '../hooks/useActions';
 import { IonButton, IonButtons, IonCol, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonMenuButton, IonPage, IonSlide, IonSlides, IonTitle, IonToolbar } from '@ionic/react';
 import { funnelOutline, notificationsOutline, searchOutline } from 'ionicons/icons';
-import $ from 'jquery';
 import './Home.css';
 
 const slideOpts = {
@@ -15,14 +14,10 @@ const slideOpts = {
 const Home: React.FC = () => {
   const { getProducts } = useAction();
   const { data, error, loading } = useTypedSelector(state => state.getProducts);
-  const [change, setChange] = useState(false);
 
-  // const timer = setTimeout(() => {
-  //   setChange(true);
-  // }, 5000);
+
   useEffect(() => {
     getProducts();
-    // $(".rm").unwrap();
   }, []);
 
 
@@ -31,6 +26,7 @@ const Home: React.FC = () => {
   //Remove all repeated categories
   const categories = data!.map(product => product.category);
   const uniqueCategories = [...new Set(categories)];
+
 
   //Reduce the length of the name of data to display
   const products = data!.map(product => {
@@ -43,6 +39,7 @@ const Home: React.FC = () => {
   //Generate three random products from the data
   const randomProducts = products.sort(() => 0.5 - Math.random()).slice(0, 3);
 
+  console.log(randomProducts);
 
 
   return (
@@ -65,24 +62,24 @@ const Home: React.FC = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
-        <div className="search ion padding">
-          <IonItem lines="none">
-            <IonInput placeholder="Search Your Product" />
-            <IonIcon icon={searchOutline} slot="start"></IonIcon>
-          </IonItem>
-        </div>
+      {data!.length !== 0 &&
+        <IonContent>
+          <div className="search ion padding">
+            <IonItem lines="none">
+              <IonInput placeholder="Search Your Product" />
+              <IonIcon icon={searchOutline} slot="start"></IonIcon>
+            </IonItem>
+          </div>
 
-        <div className="title ion-padding">
-          <h2>Categories</h2>
-          <p>See all</p>
-        </div>
+          <div className="title ion-padding">
+            <h2>Categories</h2>
+            <p>See all</p>
+          </div>
 
-        <div className="category-slider ">
-          <div>
-            <IonSlides options={slideOpts}>
-              <div className="rm">
-                {data && uniqueCategories.map((p, index) => (
+          <div className="category-slider ">
+            <div>
+              <IonSlides options={slideOpts}>
+                {uniqueCategories.map((p, index) => (
                   <IonSlide key={index}>
                     <IonCol >
                       <h4 >{p}</h4>
@@ -90,20 +87,21 @@ const Home: React.FC = () => {
                     </IonCol>
                   </IonSlide>
                 ))}
-              </div>
-            </IonSlides>
+              </IonSlides>
+
+
+            </div>
           </div>
-        </div>
 
-        <div className="title ion-padding">
-          <h2 className="font-bold">Featured</h2>
-          <p>See all</p>
-        </div>
+          <div className="title ion-padding">
+            <h2 className="font-bold">Featured</h2>
+            <p>See all</p>
+          </div>
 
-        <div className="product-slider">
-          <IonSlides options={slideOpts}>
-            <div className="rm">
-              {data && randomProducts.map((product) => (
+          <div className="product-slider">
+            <IonSlides options={slideOpts}>
+
+              {randomProducts.map((product) => (
                 <IonSlide key={product.id}>
                   <IonCol className="ion-text-left">
                     <img src={product.image} />
@@ -112,19 +110,18 @@ const Home: React.FC = () => {
                   </IonCol>
                 </IonSlide>
               ))}
-            </div>
-          </IonSlides>
-        </div>
 
-        <div className="title ion-padding">
-          <h2 className="font-bold">Best Sell</h2>
-          <p>See all</p>
-        </div>
+            </IonSlides>
+          </div>
 
-        <div className="product-slider ">
-          <IonSlides options={slideOpts}>
-            <div className="rm">
-              {data && randomProducts.map((product) => (
+          <div className="title ion-padding">
+            <h2 className="font-bold">Best Sell</h2>
+            <p>See all</p>
+          </div>
+
+          <div className="product-slider ">
+            <IonSlides options={slideOpts}>
+              {randomProducts.map((product) => (
                 <IonSlide key={product.id}>
                   <IonCol className="ion-text-left">
                     <img src={product.image} />
@@ -133,10 +130,9 @@ const Home: React.FC = () => {
                   </IonCol>
                 </IonSlide>
               ))}
-            </div>
-          </IonSlides>
-        </div>
-      </IonContent>
+            </IonSlides>
+          </div>
+        </IonContent>}
     </IonPage>
 
   );
