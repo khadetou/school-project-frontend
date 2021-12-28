@@ -14,7 +14,7 @@ const slideOpts = {
 }
 
 const Home: React.FC = () => {
-  const { getProducts } = useAction();
+  const { getProducts, createProductSeeder } = useAction();
   const { data, error, loading } = useTypedSelector(state => state.getProducts);
 
   const searchRef = useRef<HTMLIonInputElement>(null);
@@ -64,7 +64,10 @@ const Home: React.FC = () => {
   //Generate three random products from the data
   const randomProducts = products.sort(() => 0.5 - Math.random()).slice(0, 3);
 
-
+  const generateFakeData = () => {
+    createProductSeeder();
+    getProducts();
+  }
   return (
     <IonPage>
       <IonHeader>
@@ -86,7 +89,7 @@ const Home: React.FC = () => {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent>
+      {data && data!.length !== 0 ? <IonContent>
         <div className="search ion padding">
           <IonItem lines="none">
             <IonInput placeholder="Search Your Product" autocomplete="on" ref={searchRef} />
@@ -154,6 +157,13 @@ const Home: React.FC = () => {
             </IonSlides>
           </div>}
       </IonContent>
+        :
+        <IonContent>
+          <div className="center">
+            <IonButton onClick={generateFakeData}>Générer du donnée</IonButton>
+          </div>
+        </IonContent>
+      }
     </IonPage>
 
   );
