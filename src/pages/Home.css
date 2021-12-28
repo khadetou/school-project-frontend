@@ -113,3 +113,10 @@ ion-slide:focus {
 ion-col:focus {
   outline: none !important;
 }
+
+ion-content {
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+  --padding-start: 26px;
+  --padding-end: 26px;
+}

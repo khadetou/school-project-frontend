@@ -1,8 +1,8 @@
 import { IonBackButton, IonBadge, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonList, IonPage, IonRow, IonTitle, IonToolbar } from "@ionic/react";
 import { arrowRedoOutline, cart, cartOutline, chevronBackOutline, heart, heartOutline } from 'ionicons/icons';
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
 import { useAction } from "../hooks/useActions";
+import { useParams } from "react-router";
 import { useTypedSelector } from "../hooks/useTypeSelector";
 import './Product.css';
 
@@ -11,8 +11,8 @@ import './Product.css';
 const Product: React.FC = () => {
     const [isFavorite, setIsFavorite] = useState(false);
 
-
     const { getProducts } = useAction();
+
     //@ts-ignore
     const { category } = useParams();
     //@ts-ignore
@@ -47,7 +47,7 @@ const Product: React.FC = () => {
         if (!category && !search && !location && !status && !store) {
             getProducts();
         }
-    }, [])
+    }, [category, search, location, status, store]);
 
     const { data, error, loading } = useTypedSelector(state => state.getProducts);
     //Reduce the length of the name of data to display
@@ -92,7 +92,7 @@ const Product: React.FC = () => {
                                     <IonCardContent className="category-card-content">
                                         <div className="product-price">
                                             <IonButton color="light" size="large">
-                                                $ {product.price}
+                                                {product.price} FCFA
                                             </IonButton>
                                             <IonButton size="large" color="dark">
                                                 <IonIcon icon={cartOutline} />&nbsp;&nbsp;Add to Cart

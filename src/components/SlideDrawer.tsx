@@ -2,7 +2,6 @@ import { IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, Io
 import { arrowDown, arrowForward } from "ionicons/icons";
 import { useHistory } from "react-router";
 import { useEffect, useState } from "react";
-import { useAction } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypeSelector";
 
 
@@ -11,10 +10,8 @@ const SlideDrawer: React.FC = () => {
     const [showShop, setShowShop] = useState(false);
     const [showLocation, setShowLocation] = useState(false);
     const [showStatus, setShowStatus] = useState(false);
-    const { getProducts } = useAction();
-    useEffect(() => {
-        getProducts();
-    }, []);
+
+
     const history = useHistory();
 
     const { data, error, loading } = useTypedSelector(state => state.getProducts);
