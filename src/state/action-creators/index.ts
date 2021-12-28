@@ -55,6 +55,7 @@ export const getProducts = (
 ) => {
   return async (dispatch: Dispatch<Action>) => {
     dispatch({ type: ActionTypes.GET_PRODUCTS });
+    console.log(search);
     try {
       const response = await axios.get(
         `http://localhost:3001/products?search=${search}&&category=${category}&&store=${store}&&location=${location}&&status=${status}`

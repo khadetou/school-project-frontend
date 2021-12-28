@@ -27,7 +27,6 @@ const Product: React.FC = () => {
 
 
 
-
     useEffect(() => {
         if (category) {
             getProducts("", category);
