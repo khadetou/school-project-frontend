@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useAction } from "../hooks/useActions";
 import { useParams } from "react-router";
 import { useTypedSelector } from "../hooks/useTypeSelector";
+import { useHistory } from "react-router";
 import './Product.css';
 
 
@@ -24,7 +25,7 @@ const Product: React.FC = () => {
 
     //@ts-ignore
     const { store } = useParams();
-
+    const history = useHistory();
 
 
     useEffect(() => {
@@ -57,12 +58,19 @@ const Product: React.FC = () => {
         }
     });
 
+    const dispatchProduct = () => {
+        getProducts();
+        history.push("/home");
+    }
+
     return (
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonButtons slot="start">
-                        <IonBackButton defaultHref="/home" />
+                    <IonButtons slot="start" onClick={dispatchProduct}>
+                        <IonButton>
+                            <IonIcon icon={chevronBackOutline} /> Back
+                        </IonButton>
                     </IonButtons>
                     <IonTitle>View Product</IonTitle>
                     <IonButtons slot="end">
@@ -78,7 +86,7 @@ const Product: React.FC = () => {
                     <IonRow>
                         <IonCol size="12" >
                             {data && products.map((product) => (
-                                <IonCard className="category-card" key={product.id}>
+                                <IonCard className="category-card" key={product.id} onClick={() => history.push(`/details/${product.id}`)}>
                                     <IonCardHeader className="product-card-header">
                                         <div className="product-card-actions">
                                             <IonIcon className="product-card-action" color={isFavorite ? "danger" : "medium"} icon={isFavorite ? heart : heartOutline} onClick={() => setIsFavorite(!isFavorite)} />

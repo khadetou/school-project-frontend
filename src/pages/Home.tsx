@@ -24,7 +24,9 @@ const Home: React.FC = () => {
 
 
   useEffect(() => {
+
     getProducts();
+
   }, []);
 
   const search = (e: any) => {
@@ -85,7 +87,7 @@ const Home: React.FC = () => {
       <IonContent>
         <div className="search ion padding">
           <IonItem lines="none">
-            <IonInput placeholder="Search Your Product" ref={searchRef} />
+            <IonInput placeholder="Search Your Product" autocomplete="on" ref={searchRef} />
             <IonIcon icon={searchOutline} slot="start" onClick={search}></IonIcon>
           </IonItem>
         </div>
@@ -95,10 +97,11 @@ const Home: React.FC = () => {
           <p>See all</p>
         </div>
 
-        {data!.length !== 0 &&
+
+        {!loading && !error &&
           <div className="category-slider ">
             <IonSlides options={slideOpts}>
-              {categories.map((category: any, index: any) => (
+              {data!.length !== 0 && categories.map((category: any, index: any) => (
                 <IonSlide key={index}>
                   <IonCol>
                     <h4>{category.name}</h4>
@@ -114,12 +117,12 @@ const Home: React.FC = () => {
           <p>See all</p>
         </div>
 
-        {data!.length !== 0 &&
+        {!loading && !error &&
           <div className="product-slider">
             <IonSlides options={slideOpts}>
-              {randomProducts.map((product, index) => (
+              {data!.length !== 0 && randomProducts.map((product, index) => (
                 <IonSlide key={index}>
-                  <IonCol className="ion-text-left">
+                  <IonCol className="ion-text-left" onClick={() => history.push(`/details/${product.id}`)}>
                     <img src={product.image} />
                     <p> {`$${product.price} `}</p>
                     <h6> {product.name}</h6>
@@ -134,12 +137,12 @@ const Home: React.FC = () => {
           <p>See all</p>
         </div>
 
-        {data!.length !== 0 &&
+        {!loading && !error &&
           <div className="product-slider ">
             <IonSlides options={slideOpts}>
-              {randomProducts.map((product, index) => (
+              {data!.length !== 0 && randomProducts.map((product, index) => (
                 <IonSlide key={index}>
-                  <IonCol className="ion-text-left">
+                  <IonCol className="ion-text-left" onClick={() => history.push(`/details/${product.id}`)}>
                     <img src={product.image} />
                     <p> {`$${product.price} `}</p>
                     <h6> {product.name}</h6>
