@@ -8,7 +8,7 @@ L' aplication Compare price permet d'afficher des produits du moin cher au plus 
 
 ## Utilisation
 - [Front-end Github](https://github.com/khadetou/school-project-frontend.git) : lien github du front-end
-- [Back-end Github](https://github.com/khadetou/school-project-backend.git) : pour le back-end
+- [Back-end Github](https://github.com/khadetou/school-project-backend.git) : lien github du back-end
 
 Apres avoir cloner les deux repositories, il faut installer les dependances avec la commande suivante:
 
