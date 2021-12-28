@@ -53,18 +53,18 @@ export const getProducts = (
   location: string = "",
   store: string = ""
 ) => {
-  console.log(category);
   return async (dispatch: Dispatch<Action>) => {
     dispatch({ type: ActionTypes.GET_PRODUCTS });
     try {
       const response = await axios.get(
-        `http://localhost:3001/products?search=${search}&&category=${category}&&status=${status}&&location=${location}&&store=${store}`
+        `http://localhost:3001/products?search=${search}&&category=${category}&&store=${store}&&location=${location}&&status=${status}`
       );
       dispatch({
         type: ActionTypes.GET_PRODUCTS_SUCCESS,
         payload: response.data,
       });
     } catch (error: any) {
+      console.log({ error });
       dispatch({
         type: ActionTypes.GET_PRODUCTS_FAILURE,
         payload: error.message,
@@ -86,7 +86,7 @@ export const getProductById = (id: string) => {
     } catch (error: any) {
       dispatch({
         type: ActionTypes.GET_PRODUCTS_BY_ID_FAILURE,
-        payload: error.message,
+        payload: error.response.data.message,
       });
     }
   };

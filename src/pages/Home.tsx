@@ -85,7 +85,7 @@ const Home: React.FC = () => {
                 {data && uniqueCategories.map((p, index) => (
                   <IonSlide key={index}>
                     <IonCol >
-                      <h4 >{uniqueCategories[index]}</h4>
+                      <h4 >{p}</h4>
                       <img src="/assets/categories/category-1.png" />
                     </IonCol>
                   </IonSlide>

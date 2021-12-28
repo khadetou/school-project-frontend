@@ -40,11 +40,33 @@ const Product: React.FC = () => {
     const { getProducts } = useAction();
     //@ts-ignore
     const { category } = useParams();
-
+    //@ts-ignore
+    const { search } = useParams();
+    //@ts-ignore
+    const { status } = useParams();
+    //@ts-ignore
+    const { location } = useParams();
+    //@ts-ignore
+    const { store } = useParams();
 
     useEffect(() => {
         if (category) {
             getProducts("", category);
+        }
+        if (search) {
+            getProducts(search);
+        }
+        if (location) {
+            getProducts(location);
+        }
+        if (status) {
+            getProducts(status);
+        }
+        if (store) {
+            getProducts(store);
+        }
+        if (!category && !search && !location && !status && !store) {
+            getProducts();
         }
     }, [])
 
