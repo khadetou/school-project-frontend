@@ -35,9 +35,18 @@ const SlideDrawer: React.FC = () => {
     const statuses = data!.map(product => product.status);
     const uniqueStatus = [...new Set(statuses)];
 
-    //Get products by category
-    const getProductsByCategory = (category: string) => {
-        history.push(`/products/${category}`);
+
+    //Get products by location
+    const getProductsByLocation = (location: string) => {
+        history.push(`/products/${location}/location`);
+    }
+    //Get products by store
+    const getProductsByStore = (store: string) => {
+        history.push(`/products/${store}/store`);
+    }
+    //Get products by status
+    const getProductsByStatus = (status: string) => {
+        history.push(`/products/${status}/status`);
     }
 
     return (
@@ -62,7 +71,7 @@ const SlideDrawer: React.FC = () => {
                 {showCat && uniqueCategories.map((category, idx) => (
                     <IonList key={idx}>
                         <IonMenuToggle>
-                            <IonItem button onClick={() => getProductsByCategory(category)} routerDirection="none">
+                            <IonItem button routerLink={`/products/${category}`} routerDirection="none">
                                 <IonLabel>{category}</IonLabel>
                             </IonItem>
                         </IonMenuToggle>
@@ -82,7 +91,7 @@ const SlideDrawer: React.FC = () => {
                 {showShop && uniqueShops.map((shop, idx) => (
                     <IonList key={idx}>
                         <IonMenuToggle>
-                            <IonItem button routerLink="/products" routerDirection="none">
+                            <IonItem button onClick={() => getProductsByStore(shop)} routerDirection="none">
                                 <IonLabel>{shop}</IonLabel>
                             </IonItem>
                         </IonMenuToggle>
@@ -101,7 +110,7 @@ const SlideDrawer: React.FC = () => {
                 {showLocation && uniqueLocations.map((location, idx) => (
                     <IonList key={idx}>
                         <IonMenuToggle>
-                            <IonItem button routerLink="/products" routerDirection="none">
+                            <IonItem button onClick={() => getProductsByLocation(location)} routerDirection="none">
                                 <IonLabel>{location}</IonLabel>
                             </IonItem>
                         </IonMenuToggle>
@@ -121,7 +130,7 @@ const SlideDrawer: React.FC = () => {
                 {showStatus && uniqueStatus.map((status, idx) => (
                     <IonList key={idx}>
                         <IonMenuToggle>
-                            <IonItem button routerLink="/products" routerDirection="none">
+                            <IonItem button onClick={() => getProductsByStatus(status)} routerDirection="none">
                                 <IonLabel>{status}</IonLabel>
                             </IonItem>
                         </IonMenuToggle>

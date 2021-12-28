@@ -67,7 +67,7 @@ export const getProducts = (
       console.log({ error });
       dispatch({
         type: ActionTypes.GET_PRODUCTS_FAILURE,
-        payload: error.message,
+        payload: error.respose.data.message,
       });
     }
   };

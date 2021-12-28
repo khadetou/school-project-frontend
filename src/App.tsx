@@ -44,16 +44,16 @@ const App: React.FC = () => (
         <Route exact path="/products/:category">
           <Product />
         </Route>
-        <Route exact path="/products/:search">
+        <Route exact path="/products/:search/search">
           <Product />
         </Route>
-        <Route exact path="/products/:location">
+        <Route exact path="/products/:location/location">
           <Product />
         </Route>
-        <Route exact path="/products/:status">
+        <Route exact path="/products/:status/status">
           <Product />
         </Route>
-        <Route exact path="/products/:store">
+        <Route exact path="/products/:store/store">
           <Product />
         </Route>
         <Route exact path="/details">

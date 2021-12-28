@@ -1,7 +1,7 @@
 import { IonBackButton, IonBadge, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonList, IonPage, IonRow, IonTitle, IonToolbar } from "@ionic/react";
 import { arrowRedoOutline, cart, cartOutline, chevronBackOutline, heart, heartOutline } from 'ionicons/icons';
 import { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router";
+import { useParams } from "react-router";
 import { useAction } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypeSelector";
 import './Product.css';
@@ -21,8 +21,12 @@ const Product: React.FC = () => {
     const { status } = useParams();
     //@ts-ignore
     const { location } = useParams();
+
     //@ts-ignore
     const { store } = useParams();
+
+
+
 
     useEffect(() => {
         if (category) {
@@ -32,13 +36,13 @@ const Product: React.FC = () => {
             getProducts(search);
         }
         if (location) {
-            getProducts(location);
+            getProducts("", "", "", location);
         }
         if (status) {
-            getProducts(status);
+            getProducts("", "", status);
         }
         if (store) {
-            getProducts(store);
+            getProducts("", "", "", "", store);
         }
         if (!category && !search && !location && !status && !store) {
             getProducts();
